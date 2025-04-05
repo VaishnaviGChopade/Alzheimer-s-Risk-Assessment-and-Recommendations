@@ -51,7 +51,9 @@ with open("xgboost_model.pkl", "rb") as model_file:
 @app.route("/about")  
 def about():
     return render_template("About.html") 
-
+@app.route("/brain-games")
+def brain_games():
+    return render_template("brain_games.html")
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -106,20 +108,20 @@ def predict():
         print(f"Prediction Probability: {prediction_prob}")
         if isinstance(prediction_prob, np.ndarray) and len(prediction_prob) == 1:
             prediction = int(prediction_prob[0] > 0.3299)  # Convert probability to 0 or 1
-            prediction_text = "No Alzheimer's" if prediction == 0 else "High Risk of Alzheimer's"
+            prediction_text = "" if prediction == 0 else "High Risk of Alzheimer's"
             print(f"Prediction : {prediction_text}")
         else:
             prediction_text = "Error: Unexpected model output."
         if prediction == 0:  # Even if the model predicts "No Alzheimer's"
             if prediction_prob >= 0.2:
                 risk_category = "Moderate Risk of having alzheimers"
-                prediction_text+="\n"+risk_category
+                prediction_text+=risk_category
             elif prediction_prob >= 0.1:
                 risk_category = "Low Risk of having alzheimers"
-                prediction_text+="\n"+risk_category
+                prediction_text+=risk_category
             else:
                 risk_category = "Very Low Risk of having alzheimers"
-                prediction_text+="\n"+risk_category
+                prediction_text+=risk_category
         
 
         return jsonify({"result": prediction_text, "probability": str(prediction_prob[0])})
