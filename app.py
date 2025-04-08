@@ -54,6 +54,9 @@ def about():
 @app.route("/brain-games")
 def brain_games():
     return render_template("brain_games.html")
+@app.route("/get-recommendations")
+def get_recommendations():
+    return render_template("recommendations.html")
 @app.route('/predict', methods=['POST'])
 def predict():
     try:

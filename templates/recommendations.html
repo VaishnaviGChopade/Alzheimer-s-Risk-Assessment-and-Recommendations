@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Alzheimer's Risk Recommendations</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: #f0f4f8;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #1e293b;
+        }
+
+        .grid-top,
+        .grid-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            width: 280px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            background-color: #e0f2fe;
+        }
+
+        .category h3 {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: #0f172a;
+        }
+
+        .param {
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #f1f5f9;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+            font-size: 0.95rem;
+        }
+
+        .param:hover {
+            background-color: #bae6fd;
+        }
+
+        .param.selected {
+            background-color: #38bdf8;
+            color: white;
+            font-weight: bold;
+            transform: scale(1.05);
+        }
+
+        #getRecommendations {
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #getRecommendations:hover {
+            background-color: #1e40af;
+        }
+
+        #recommendationBox {
+            max-width: 960px;
+            margin: 30px auto 0;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+        }
+
+        #recommendationBox h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .recommendation {
+            margin: 10px 0;
+            padding: 12px;
+            background-color: #f3e8ff;
+            border-left: 4px solid #c288ff;
+            border-radius: 10px;
+        }
+
+        .emoji {
+            font-size: 1.2rem;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .category {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🧠 Alzheimer's Risk Recommendations</h1>
+
+    <div class="grid-top">
+        <div class="category">
+            <h3>👥 Demographics</h3>
+            <div class="param" data-param="Age">🎂 Age</div>
+            <div class="param" data-param="Gender">🚻 Gender</div>
+            <div class="param" data-param="Ethnicity">🌍 Ethnicity</div>
+            <div class="param" data-param="EducationLevel">🎓 Education Level</div>
+        </div>
+
+        <div class="category">
+            <h3>🏃 Lifestyle</h3>
+            <div class="param" data-param="BMI">⚖️ BMI</div>
+            <div class="param" data-param="Smoking">🚬 Smoking</div>
+            <div class="param" data-param="AlcoholConsumption">🍷 Alcohol</div>
+            <div class="param" data-param="DietQuality">🥗 Diet Quality</div>
+            <div class="param" data-param="SleepQuality">😴 Sleep Quality</div>
+        </div>
+
+        <div class="category">
+            <h3>🩺 Medical History</h3>
+            <div class="param" data-param="FamilyHistoryAlzheimers">🧬 Family History</div>
+            <div class="param" data-param="Diabetes">🍬 Diabetes</div>
+            <div class="param" data-param="Depression">😔 Depression</div>
+            <div class="param" data-param="HeadInjury">🤕 Head Injury</div>
+            <div class="param" data-param="Hypertension">💓 Hypertension</div>
+        </div>
+    </div>
+
+    <div class="grid-bottom">
+        <div class="category">
+            <h3>🧪 Clinical</h3>
+            <div class="param" data-param="SystolicBP">⬆️ Systolic BP</div>
+            <div class="param" data-param="DiastolicBP">⬇️ Diastolic BP</div>
+            <div class="param" data-param="CholesterolLDL">🧈 LDL Cholesterol</div>
+            <div class="param" data-param="CholesterolHDL">💧 HDL Cholesterol</div>
+            <div class="param" data-param="CholesterolTriglycerides">🍟 Triglycerides</div>
+        </div>
+
+        <div class="category">
+            <h3>🧠 Cognitive & Functional</h3>
+            <div class="param" data-param="MMSE">📝 MMSE Score</div>
+            <div class="param" data-param="ADL_FunctionalCombined">🧍‍♂️ ADL Function</div>
+            <div class="param" data-param="BehavioralIssues">😵 Behavioral Issues</div>
+        </div>
+    </div>
+
+    <button id="getRecommendations">📋 Get Recommendations</button>
+
+    <div id="recommendationBox">
+        <h2>💡 Recommendations Based on Selection</h2>
+        <div id="recommendationList"></div>
+    </div>
+
+    <script>
+        const parameters = document.querySelectorAll('.param');
+        const recommendationList = document.getElementById('recommendationList');
+
+        const recommendations = {
+            Age: `
+    <p>📅 <strong>Age</strong> is a major risk factor for Alzheimer’s, especially after 65. While aging is natural, you can reduce its impact:</p>
+    <ul>
+      <li>🧠 Keep your brain active: read books, play puzzles, or learn new skills.</li>
+      <li>🚶‍♂️ Stay physically active with daily walks or light exercise.</li>
+      <li>🥗 Eat a balanced, brain-healthy diet (fruits, veggies, whole grains).</li>
+      <li>🛌 Get enough sleep—7 to 9 hours each night.</li>
+      <li>🧑‍⚕️ Go for regular check-ups to catch early signs.</li>
+    </ul>
+    <p>Small lifestyle habits can protect your brain even as you age!</p>
+  `,
+
+            Gender: `
+    <p>🚻 <strong>Gender</strong> can influence Alzheimer’s risk. Women are more prone due to hormonal changes and longer lifespan.</p>
+    <ul>
+      <li>💪 Engage in mental and physical exercises regularly.</li>
+      <li>🧘‍♀️ Practice stress-reducing activities like yoga or meditation.</li>
+      <li>🥗 Follow a Mediterranean-style diet rich in omega-3s.</li>
+      <li>🛌 Ensure consistent and restful sleep.</li>
+      <li>🤝 Stay socially connected with friends and family.</li>
+    </ul>
+    <p>Regardless of gender, healthy habits make a big difference in brain health!</p>
+  `,
+
+            Ethnicity: `
+    <p>🌍 <strong>Ethnicity</strong> may affect Alzheimer's risk. African American and Hispanic individuals may face higher risks due to health disparities.</p>
+    <ul>
+      <li>🩺 Manage chronic conditions like diabetes and hypertension.</li>
+      <li>🍽️ Eat a nutrient-rich diet—fruits, veggies, whole grains.</li>
+      <li>🏃‍♀️ Be active—aim for at least 30 mins of movement daily.</li>
+      <li>📚 Stay mentally engaged through hobbies or learning.</li>
+      <li>💬 Encourage community education and access to healthcare.</li>
+    </ul>
+    <p>Empowering yourself with awareness and healthy habits matters more than genetics!</p>
+  `,
+
+            EducationLevel: `
+    <p>🎓 <strong>Education level</strong> is linked to cognitive reserve—more learning builds brain strength!</p>
+    <ul>
+      <li>📖 Keep learning: read books, take courses, or explore new topics.</li>
+      <li>🧩 Play brain games and solve puzzles to stay mentally sharp.</li>
+      <li>🗣️ Socialize and have thoughtful conversations regularly.</li>
+      <li>✍️ Journal, write, or practice memory exercises.</li>
+      <li>💡 Try new skills like cooking, art, or music.</li>
+    </ul>
+    <p>Lifelong learning boosts brain resilience—it's never too late to start!</p>
+  `,
+
+            BMI: `
+    <p>⚖️ <strong>BMI</strong> (Body Mass Index) is crucial for brain and overall health.</p>
+    <p><strong>👇 Underweight (BMI &lt; 18.5):</strong></p>
+    <ul>
+      <li>🍽️ Eat calorie-dense snacks like peanut butter, trail mix, and protein bars.</li>
+      <li>🧃 Add seeds and nuts to meals for healthy fats.</li>
+      <li>🕒 Eat smaller meals more frequently throughout the day.</li>
+    </ul>
+    <p><strong>⚠️ Overweight/Obese (BMI 25–30/30+):</strong></p>
+    <ul>
+      <li>🥗 Improve diet—focus on fruits, veggies, whole grains, and lean protein.</li>
+      <li>🏃‍♂️ Exercise 30 mins/day—walking, cycling, or swimming.</li>
+      <li>💤 Get 7–9 hours of sleep and manage stress with yoga or mindfulness.</li>
+    </ul>
+    <p>Maintaining a healthy BMI helps reduce the risk of Alzheimer’s and many other health issues.</p>
+  `,
+
+            Smoking: `
+    <p>🚬 <strong>Smoking</strong> increases Alzheimer’s risk and affects memory and overall brain function.</p>
+    <ul>
+      <li>🛑 Try quitting with nicotine patches, gum, or lozenges.</li>
+      <li>🧠 Behavioral therapy or counseling helps reinforce motivation.</li>
+      <li>🚫 Remove ashtrays and create no-smoking zones at home.</li>
+      <li>🧩 Replace smoking with activities like puzzles or music.</li>
+      <li>💊 Ask a doctor about medications to aid quitting.</li>
+      <li>👥 Caregivers should consistently support and remind patients.</li>
+    </ul>
+    <p>Quitting smoking is one of the <strong>most effective</strong> ways to protect your brain and boost long-term health. Every effort counts!</p>
+  `,
+
+            AlcoholConsumption: `
+    <p>🍷 <strong>Alcohol</strong> in excess can harm memory and speed up cognitive decline.</p>
+    <ul>
+      <li>🧠 Heavy drinking (25+ units/week) increases Alzheimer’s risk.</li>
+      <li>🥂 Moderate: 1 drink/day (women), 2 drinks/day (men).</li>
+      <li>🧃 Choose low- or zero-alcohol alternatives at home.</li>
+      <li>📆 Set weekly alcohol limits and stick to alcohol-free days.</li>
+      <li>🔄 Alternate alcoholic drinks with water or juice.</li>
+      <li>📉 Track how much you're drinking to stay aware.</li>
+    </ul>
+    <p>Light drinking may not be harmful, but moderation is key. Encourage healthy habits that preserve brain health!</p>
+  `,
+
+            DietQuality: `
+    <p>🥦 <strong>Diet quality</strong> plays a huge role in brain function and Alzheimer's prevention.</p>
+    <ul>
+      <li>🌱 Eat more plant-based foods: fruits, veggies, legumes, whole grains.</li>
+      <li>🐟 Include brain-friendly proteins like fish, chicken, eggs, and low-fat dairy.</li>
+      <li>🥑 Use healthy fats: olive oil, avocados, and nuts.</li>
+      <li>❌ Limit fried foods, red meats, and sugary drinks.</li>
+      <li>🍴 Offer small, frequent meals and calorie-dense snacks if needed.</li>
+      <li>🎨 Use colorful plates to help with food recognition for Alzheimer’s patients.</li>
+    </ul>
+    <p>A vibrant, balanced diet fuels your brain—every bite matters!</p>
+  `,
+
+            SleepQuality: `
+    <p>😴 <strong>Sleep Quality</strong> directly affects brain repair, memory, and mood.</p>
+    <ul>
+      <li>⏰ Set a regular sleep schedule—same bedtime and wake-up daily.</li>
+      <li>🧘 Try calming pre-bedtime routines like reading, music, or warm baths.</li>
+      <li>🚫 Avoid caffeine and heavy meals 2–3 hours before sleep.</li>
+      <li>📵 Limit screen time before bed—blue light affects melatonin.</li>
+      <li>🌙 Keep the bedroom dark, quiet, and cool for ideal rest.</li>
+      <li>🏃‍♂️ Encourage light exercise during the day, but not close to bedtime.</li>
+      <li>💊 Consult a doctor if medications affect sleep or disturbances persist.</li>
+    </ul>
+    <p>Good sleep = better brain health. Prioritize rest to support memory and reduce Alzheimer's risk!</p>
+  `,
+            FamilyHistoryAlzheimers: `
+    <p>🧬 <strong>Family History</strong> increases the risk of developing Alzheimer’s, but lifestyle still plays a key role!</p>
+    <ul>
+      <li>🥗 Follow a brain-healthy diet rich in leafy greens, berries, and omega-3s.</li>
+      <li>🧩 Keep the brain active through puzzles, reading, or learning new skills.</li>
+      <li>🏃‍♀️ Stay physically active — 30 minutes daily helps improve blood flow to the brain.</li>
+      <li>🧘 Manage stress through yoga, breathing techniques, or hobbies.</li>
+      <li>🛌 Prioritize quality sleep and maintain a regular routine.</li>
+    </ul>
+    <p>Genes load the gun, but lifestyle pulls the trigger — take charge of your brain health today! 🔐🧠</p>
+  `
+            ,
+
+            Diabetes: `
+    <p>🩸 <strong>Diabetes</strong> management is crucial for protecting blood vessels and brain cells.</p>
+    <ul>
+      <li>🥗 Focus on non-starchy veggies like spinach, broccoli, and bell peppers.</li>
+      <li>🍎 Opt for low-sugar fruits—berries, apples, oranges.</li>
+      <li>🌾 Choose whole grains like oats, brown rice, and quinoa.</li>
+      <li>🍗 Include lean proteins like fish, tofu, and lentils.</li>
+      <li>🚫 Avoid sugary drinks, processed foods, and fried snacks.</li>
+      <li>🕒 Eat small, frequent meals to balance blood sugar.</li>
+      <li>🚶‍♀️ Encourage gentle daily activity—walking, stretching, or chair exercises.</li>
+    </ul>
+    <p>Managing blood sugar helps slow cognitive decline and supports overall health!</p>
+  `,
+
+            Depression: `
+    <p>😟 <strong>Depression</strong> can worsen memory, attention, and quality of life for Alzheimer’s patients.</p>
+    <ul>
+      <li>👂 Encourage open conversations—let them express emotions.</li>
+      <li>☀️ Ensure exposure to natural sunlight for mood regulation.</li>
+      <li>🎨 Promote hobbies like painting, music, or gardening.</li>
+      <li>👥 Provide social interaction with loved ones or support groups.</li>
+      <li>🧘 Introduce calming practices like breathing exercises or gentle yoga.</li>
+      <li>💊 Consult a doctor for medication or therapy options if symptoms persist.</li>
+    </ul>
+    <p>Mental wellness is key to better cognitive health. Small steps make a big difference. ❤️</p>
+  `,
+
+            HeadInjury: `
+    <p>🧠 <strong>Head Injuries</strong> increase Alzheimer's risk by damaging brain structures.</p>
+    <ul>
+      <li>🛡️ Ensure safety—use seat belts, handrails, and remove trip hazards at home.</li>
+      <li>🧢 Encourage helmet use for activities like biking or sports.</li>
+      <li>💡 Keep rooms well-lit to avoid accidents.</li>
+      <li>🧍‍♂️ Monitor balance—provide support if mobility is poor.</li>
+      <li>🧑‍⚕️ Seek immediate care if a fall or injury occurs, even without visible symptoms.</li>
+      <li>🛌 Allow proper rest and avoid mentally demanding tasks post-injury.</li>
+    </ul>
+    <p>Prevention is key—protecting the head means protecting long-term brain function.</p>
+  `,
+
+            Hypertension: `
+    <p>💓 <strong>Hypertension (High Blood Pressure)</strong> can damage brain blood vessels and speed up dementia progression.</p>
+    <ul>
+      <li>🧂 Reduce salt intake—avoid processed foods and salty snacks.</li>
+      <li>🥗 Eat a DASH-style diet rich in fruits, veggies, whole grains, and lean protein.</li>
+      <li>🚶 Stay active with daily walks, yoga, or light aerobic exercises.</li>
+      <li>💧 Stay hydrated and avoid excessive caffeine or alcohol.</li>
+      <li>🧘 Practice relaxation techniques to reduce stress.</li>
+      <li>🔍 Regularly monitor blood pressure and follow doctor’s advice.</li>
+    </ul>
+    <p>Managing blood pressure keeps your brain healthier for longer!</p>
+  `,
+            SystolicBP: `
+    <p>💉 <strong>Systolic Blood Pressure</strong> (top number) indicates pressure when the heart beats—vital for brain health.</p>
+    <ul>
+      <li>🧂 Reduce sodium—avoid canned, packaged, and fast foods.</li>
+      <li>🍌 Eat potassium-rich foods—bananas, spinach, sweet potatoes.</li>
+      <li>🚶‍♂️ Aim for 30 minutes of daily movement—walking, dancing, or yoga.</li>
+      <li>🧘 Manage stress with meditation, hobbies, or nature time.</li>
+      <li>🩺 Monitor blood pressure regularly and follow medical advice.</li>
+    </ul>
+    <p>Keeping systolic BP in check helps protect blood vessels in the brain and reduce dementia risk!</p>
+  `,
+
+            DiastolicBP: `
+    <p>🫀 <strong>Diastolic Blood Pressure</strong> (bottom number) reflects pressure when the heart rests—equally important for brain health.</p>
+    <ul>
+      <li>🥗 Maintain a heart-healthy diet—fruits, veggies, whole grains.</li>
+      <li>🚫 Limit alcohol, caffeine, and stress triggers.</li>
+      <li>🛌 Ensure quality sleep and avoid sleep apnea symptoms.</li>
+      <li>🧘 Incorporate relaxation routines into your daily schedule.</li>
+      <li>📋 Track blood pressure and take medications as prescribed.</li>
+    </ul>
+    <p>Stable diastolic BP means better circulation and less stress on the brain’s tiny vessels.</p>
+  `,
+
+            CholesterolLDL: `
+    <p>🧪 <strong>LDL Cholesterol</strong> is the "bad" cholesterol that can clog arteries, affecting brain blood flow.</p>
+    <ul>
+      <li>🚫 Avoid fried foods, red meats, and full-fat dairy.</li>
+      <li>🥑 Replace butter with healthy fats—avocados, olive oil, and nuts.</li>
+      <li>🌾 Choose whole grains and high-fiber foods like oats and beans.</li>
+      <li>🚶‍♂️ Exercise regularly to lower LDL and boost heart-brain health.</li>
+      <li>🩺 Get regular lipid profile tests and follow medical guidance.</li>
+    </ul>
+    <p>Lower LDL = smoother blood flow to the brain = sharper cognition!</p>
+  `,
+
+            CholesterolHDL: `
+    <p>🧬 <strong>HDL Cholesterol</strong> is the "good" cholesterol—it helps clear out bad fats from arteries.</p>
+    <ul>
+      <li>🐟 Eat omega-3 rich foods—salmon, sardines, chia seeds, walnuts.</li>
+      <li>🚭 Don’t smoke—quitting boosts HDL fast.</li>
+      <li>🏋️‍♀️ Stay active—cardio and strength training improve HDL levels.</li>
+      <li>🥜 Include healthy fats like nuts, olive oil, and seeds in moderation.</li>
+      <li>🍷 If you drink, do so moderately—red wine may slightly raise HDL.</li>
+    </ul>
+    <p>Higher HDL levels support cleaner arteries and better brain protection!</p>
+  `,
+
+            CholesterolTriglycerides: `
+    <p>📉 <strong>Triglycerides</strong> are fats in your blood—high levels can thicken arteries and slow brain blood flow.</p>
+    <ul>
+      <li>🍴 Avoid sugary foods, refined carbs, and trans fats.</li>
+      <li>🚰 Drink water over sugary drinks or soda.</li>
+      <li>🥗 Eat more fiber-rich foods—beans, oats, veggies.</li>
+      <li>🚴 Get moving—exercise is the fastest way to lower triglycerides.</li>
+      <li>🔍 Monitor levels through blood tests and follow your doctor’s advice.</li>
+    </ul>
+    <p>Lowering triglycerides sharpens memory and reduces Alzheimer’s risk!</p>
+  `,
+
+            MMSE: `
+  <p>🧠 <strong>MMSE (Mini-Mental State Examination)</strong> helps assess cognitive function, memory, and orientation.</p>
+  <ul>
+    <li>🧩 For <strong>scores below 24</strong>, encourage brain exercises—puzzles, word games, or memory cards.</li>
+    <li>🎵 Use music, storytelling, or photos to stimulate memory and engagement.</li>
+    <li>🗓️ Maintain a daily routine with consistent activities and reminders.</li>
+    <li>👥 Encourage gentle social interaction—calls, family visits, or group chats.</li>
+    <li>🧘 Reduce confusion by minimizing stress and creating a calm environment.</li>
+  </ul>
+  <p>Lower MMSE scores don’t mean giving up—small, consistent efforts can slow decline and improve quality of life.</p>
+`,
+
+            ADL_FunctionalCombined: `
+    <p>🧍‍♂️ <strong>Activities of Daily Living (ADL)</strong> reflect how independently someone can manage daily tasks.</p>
+    <ul>
+      <li>🪑 Modify the home—add grab bars, non-slip mats, and clear pathways.</li>
+      <li>⏰ Set daily routines to reduce confusion and boost confidence.</li>
+      <li>🧩 Break tasks into smaller steps with visual or verbal cues.</li>
+      <li>🧑‍🤝‍🧑 Involve them in simple tasks like folding laundry or setting the table.</li>
+      <li>🧠 Use reminder notes, timers, or assistive tech to prompt actions.</li>
+    </ul>
+    <p>Supporting ADLs builds a sense of independence and improves quality of life! 💪</p>
+  `,
+
+            BehavioralIssues: `
+    <p>😤 <strong>Behavioral Issues</strong> like aggression, anxiety, or confusion are common in Alzheimer’s.</p>
+    <ul>
+      <li>🧘 Stay calm and use a reassuring tone—don’t argue or correct harshly.</li>
+      <li>🕰️ Keep a consistent routine to reduce triggers.</li>
+      <li>🎵 Use soothing music or calming activities to distract.</li>
+      <li>📉 Track behaviors to identify patterns or causes.</li>
+      <li>💊 Consult a doctor if medications are needed for mood stabilization.</li>
+    </ul>
+    <p>Understanding behavior helps reduce distress—for both the patient and caregiver. ❤️</p>
+  `,
+
+        };
+
+
+        parameters.forEach(param => {
+            param.addEventListener('click', () => {
+                param.classList.toggle('selected');
+            });
+        });
+
+        document.getElementById('getRecommendations').addEventListener('click', () => {
+            recommendationList.innerHTML = '';
+            const selectedParams = document.querySelectorAll('.param.selected');
+
+            if (selectedParams.length === 0) {
+                recommendationList.innerHTML = `<p style="text-align:center;">⚠️ Please select some parameters above to get recommendations.</p>`;
+                return;
+            }
+
+            selectedParams.forEach(param => {
+                const key = param.dataset.param;
+                const recommendation = recommendations[key] || "No recommendation available.";
+                const recElement = document.createElement('div');
+                recElement.className = 'recommendation';
+                recElement.innerHTML = recommendation;
+                recommendationList.appendChild(recElement);
+            });
+
+        });
+    </script>
+    <div class="text-center mt-5 mb-4">
+        <a href="/" class="btn btn-dark">Back to Home</a>
+    </div>
+</body>
+
+</html>
