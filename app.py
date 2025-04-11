@@ -51,12 +51,19 @@ with open("xgboost_model.pkl", "rb") as model_file:
 @app.route("/about")  
 def about():
     return render_template("About.html") 
+
 @app.route("/brain-games")
 def brain_games():
     return render_template("brain_games.html")
+
 @app.route("/get-recommendations")
 def get_recommendations():
     return render_template("recommendations.html")
+
+@app.route("/alzheimers-education")
+def get_alzheimers_education():
+    return render_template("educational.html")
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
