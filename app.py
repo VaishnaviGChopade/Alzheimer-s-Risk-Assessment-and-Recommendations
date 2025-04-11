@@ -1,7 +1,7 @@
 # from flask import Flask, request, jsonify
 # import pickle  # Assuming you have a saved ML model
 
-# app = Flask(__name__)
+# app = Flask(_name_)
 
 # # Load the trained Alzheimer's Risk Assessment model
 # with open("alzheimer_model.pkl", "rb") as model_file:
@@ -10,7 +10,7 @@
 # @app.route("/predict", methods=["POST"])
 # def predict():
 #     data = request.get_json()
-    
+
 #     # Convert received data into a feature list (ensure order matches training)
 #     features = [
 #         float(data["age"]), int(data["gender"]), int(data["ethnicity"]),
@@ -25,121 +25,105 @@
 
 #     # Make prediction
 #     prediction = model.predict([features])[0]  # Assuming it's a binary classification
-    
+
 #     return jsonify({"prediction": "High Risk" if prediction == 1 else "Low Risk"})
 
-# if __name__ == "__main__":
+# if _name_ == "_main_":
 #     app.run(debug=True)
-    
-from flask import Flask, request, render_template, jsonify 
+
+from flask import Flask, request, render_template, jsonify
 import pickle
 import numpy as np
 import xgboost as xgb  # Ensure this is imported at the top
 
 
 app = Flask(__name__)
-@app.route("/")  
+
+
+@app.route("/")
 def home():
     return render_template("index.html")  # Renders index.html as the homepage
 
-@app.route("/risk-assessment")  
+
+@app.route("/risk-assessment")
 def risk_assessment():
-    return render_template("Risk_Assessment.html")  # Renders Risk_Assessment.html
-with open("xgboost_model.pkl", "rb") as model_file:
-    model = pickle.load(model_file)
+    # Renders Risk_Assessment.html
+    return render_template("Risk_Assessment.html")
 
-@app.route("/about")  
-def about():
-    return render_template("About.html") 
-
-@app.route("/brain-games")
-def brain_games():
-    return render_template("brain_games.html")
 
 @app.route("/get-recommendations")
 def get_recommendations():
     return render_template("recommendations.html")
 
-@app.route("/alzheimers-education")
-def get_alzheimers_education():
-    return render_template("educational.html")
+
+@app.route("/about")
+def about():
+    return render_template("About.html")
+
+
+@app.route("/brain-games")
+def brain_games():
+    return render_template("brain_games.html")
+
+
+with open("continued_xgb_model1.pkl", "rb") as model_file:
+    model = pickle.load(model_file)
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        age = int(request.form["age"])
-        education = float(request.form["education"])
-        bmi = float(request.form["bmi"])
-        alcohol = float(request.form["alcohol"])
-        diet = float(request.form["diet"])
-        sleep = float(request.form["sleep"])
-        systolic_bp = float(request.form["systolic_bp"])
-        diastolic_bp = float(request.form["diastolic_bp"])
-        cholesterol_ldl = float(request.form["cholesterol_ldl"])
-        cholesterol_hdl = float(request.form["cholesterol_hdl"])
-        cholesterol_trig = float(request.form["cholesterol_trig"])
-        mmse = float(request.form["mmse"])
-        adl = float(request.form["adl"])
-        behavior = float(request.form["behavior"])
+        # Numeric Inputs
+        age = int(request.form["Age"])
+        bmi = float(request.form["BMI"])
+        alcohol = float(request.form["AlcoholConsumption"])
+        physical_activity = float(request.form["PhysicalActivity"])
+        diet = float(request.form["DietQuality"])
+        sleep = float(request.form["SleepQuality"])
+        systolic_bp = float(request.form["SystolicBP"])
+        diastolic_bp = float(request.form["DiastolicBP"])
+        cholesterol_total = float(request.form["CholesterolTotal"])
+        cholesterol_ldl = float(request.form["CholesterolLDL"])
+        cholesterol_hdl = float(request.form["CholesterolHDL"])
+        cholesterol_trig = float(request.form["CholesterolTriglycerides"])
+        mmse = float(request.form["MMSE"])
+        functional = float(request.form["FunctionalAssessment"])
+        adl = float(request.form["ADL"])
+        behavior = float(request.form["BehavioralProblems"])
 
-        # Extract categorical values as integers
-        gender = int(request.form["gender"])  # 0 = Male, 1 = Female
-        ethnicity = int(request.form["ethnicity"])
-        smoking = int(request.form["smoking"])
-        family_history = int(request.form["family_history"])
-        diabetes = int(request.form["diabetes"])
-        depression = int(request.form["depression"])
-        head_injury = int(request.form["head_injury"])
-        hypertension = int(request.form["hypertension"])
+        # Categorical Inputs
+        memory_complaints = int(request.form["MemoryComplaints"])
 
-     
+        # Construct feature array
         features = np.array([
-    age, gender, ethnicity, education, bmi, smoking,
-    alcohol, diet, sleep, family_history, diabetes, depression,
-    head_injury, hypertension, systolic_bp, diastolic_bp,
-    cholesterol_ldl, cholesterol_hdl, cholesterol_trig,
-    mmse, adl, behavior
-])
+            age, bmi, alcohol, physical_activity, diet, sleep,
+            systolic_bp, diastolic_bp, cholesterol_total,
+            cholesterol_ldl, cholesterol_hdl, cholesterol_trig,
+            mmse, functional, adl, behavior, memory_complaints
+        ])
 
         if np.isnan(features).any():
-          return jsonify({"result": "Error: One or more input values are invalid or missing."})
+            return jsonify({"result": "Error: One or more input values are missing or invalid."})
 
-        feature_names = [
-    "Age", "Gender", "Ethnicity", "EducationLevel", "BMI", "Smoking",
-    "AlcoholConsumption", "DietQuality", "SleepQuality", "FamilyHistoryAlzheimers",
-    "Diabetes", "Depression", "HeadInjury", "Hypertension", "SystolicBP",
-    "DiastolicBP", "CholesterolLDL", "CholesterolHDL", "CholesterolTriglycerides",
-    "MMSE", "ADL_FunctionalCombined", "Behavioral_Issues_Combined"
-]
+        # Predict using model
+        prob = model.predict_proba(features[np.newaxis, :])[0][1]
 
-        dmat = xgb.DMatrix(features[np.newaxis, :], feature_names=feature_names)
-        #prediction = model.predict(dmat)[0] 
-        prediction_prob = model.predict(dmat)
-        print(f"Prediction Probability: {prediction_prob}")
-        if isinstance(prediction_prob, np.ndarray) and len(prediction_prob) == 1:
-            prediction = int(prediction_prob[0] > 0.3299)  # Convert probability to 0 or 1
-            prediction_text = "" if prediction == 0 else "High Risk of Alzheimer's"
-            print(f"Prediction : {prediction_text}")
+        # Assign risk level
+        if prob < 0.33:
+            prediction_text = "Low Risk of Alzheimer's"
+        elif prob < 0.66:
+            prediction_text = "Moderate Risk of Alzheimer's"
         else:
-            prediction_text = "Error: Unexpected model output."
-        if prediction == 0:  # Even if the model predicts "No Alzheimer's"
-            if prediction_prob >= 0.2:
-                risk_category = "Moderate Risk of having alzheimers"
-                prediction_text+=risk_category
-            elif prediction_prob >= 0.1:
-                risk_category = "Low Risk of having alzheimers"
-                prediction_text+=risk_category
-            else:
-                risk_category = "Very Low Risk of having alzheimers"
-                prediction_text+=risk_category
-        
+            prediction_text = "High Risk of Alzheimer's"
 
-        return jsonify({"result": prediction_text, "probability": str(prediction_prob[0])})
+        return jsonify({
+            "result": prediction_text,
+            "probability": f"{prob:.4f}"
+        })
 
     except Exception as e:
-        return jsonify({"result": f"Error: {str(e)}"})
+        return jsonify({"result": f"Error: {str(e)}"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
