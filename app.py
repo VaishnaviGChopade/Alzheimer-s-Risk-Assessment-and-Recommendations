@@ -56,6 +56,11 @@ def get_recommendations():
     return render_template("recommendations.html")
 
 
+@app.route("/alzheimers-education")
+def get_alzheimers_education():
+    return render_template("educational.html")
+
+
 @app.route("/about")
 def about():
     return render_template("About.html")
