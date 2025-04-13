@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alzheimer's Risk Assessment</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='Risk.css') }}"> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -48,98 +49,113 @@
 
                 <!-- Age -->
                 <div class="col-md-4">
-                    <label class="form-label">Age</label>
+                    <label class="form-label">Age<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Your current age in years."></i></label>
                     <input type="number" step="1" min="18" max="100" name="Age" class="form-control" required>
                 </div>
 
                 <!-- BMI -->
                 <div class="col-md-4">
-                    <label class="form-label">BMI (15,40)</label>
+                    <label class="form-label">BMI (15-40)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Body Mass Index calculated using height and weight. Range: 15 to 40."></i></label>
                     <input type="number" step="0.01" min="15" max="40" name="BMI" class="form-control" required>
                 </div>
 
                 <!-- Alcohol -->
                 <div class="col-md-4">
-                    <label class="form-label">Alcohol Consumption (Units/week - 0-20)</label>
+                    <label class="form-label">Alcohol Consumption (Units/week - 0-20)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Average alcohol units consumed per week. Range: 0 to 20."></i></label>
                     <input type="number" step="0.01" min="0" max="20" name="AlcoholConsumption" class="form-control"
                         required>
                 </div>
 
                 <!-- Physical Activity -->
                 <div class="col-md-4">
-                    <label class="form-label">Physical Activity (0-10)</label>
+                    <label class="form-label">Physical Activity (0-10)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Level of weekly physical activity. Higher is better. Range: 0 to 20"></i></label>
                     <input type="number" step="0.01" min="0" max="20" name="PhysicalActivity" class="form-control"
                         required>
                 </div>
 
                 <!-- Diet Quality -->
                 <div class="col-md-4">
-                    <label class="form-label">Diet Quality (0-10)</label>
+                    <label class="form-label">Diet Quality (0-10)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Nutritional quality of your diet. Range: 0 (poor) to 10 (excellent)."></i></label>
                     <input type="number" step="0.01" min="0" max="10" name="DietQuality" class="form-control" required>
                 </div>
 
                 <!-- Sleep Quality -->
                 <div class="col-md-4">
-                    <label class="form-label">Sleep Quality (4-10)</label>
+                    <label class="form-label">Sleep Quality (4-10)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Average sleep quality score. Range: 4 (poor) to 10 (excellent)."></i></label>
                     <input type="number" step="0.01" min="4" max="10" name="SleepQuality" class="form-control" required>
                 </div>
 
                 <!-- Systolic BP -->
                 <div class="col-md-4">
-                    <label class="form-label">Systolic BP (90-180)</label>
+                    <label class="form-label">Systolic BP (90-180)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Upper number in blood pressure reading. Range: 90 to 180 mmHg."></i></label>
                     <input type="number" step="0.01" min="90" max="180" name="SystolicBP" class="form-control" required>
                 </div>
 
                 <!-- Diastolic BP -->
                 <div class="col-md-4">
-                    <label class="form-label">Diastolic BP (60-120)</label>
+                    <label class="form-label">Diastolic BP (60-120)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Lower number in blood pressure reading. Range: 60 to 120 mmHg."></i></label>
                     <input type="number" step="0.01" min="60" max="120" name="DiastolicBP" class="form-control"
                         required>
                 </div>
 
                 <!-- Cholesterol Total -->
                 <div class="col-md-4">
-                    <label class="form-label">Cholesterol Total (150-300)</label>
+                    <label class="form-label">Cholesterol Total (150-300)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Total blood cholesterol level. Range: 150 to 300 mg/dL."></i></label>
                     <input type="number" step="0.01" min="150" max="300" name="CholesterolTotal" class="form-control"
                         required>
                 </div>
 
                 <!-- LDL -->
                 <div class="col-md-4">
-                    <label class="form-label">Cholesterol LDL (mg/dL 50-200)</label>
+                    <label class="form-label">Cholesterol LDL (mg/dL 50-200)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Low-density lipoprotein (bad cholesterol). Range: 50 to 200 mg/dL."></i></label>
                     <input type="number" step="0.01" min="50" max="200" name="CholesterolLDL" class="form-control"
                         required>
                 </div>
 
                 <!-- HDL -->
                 <div class="col-md-4">
-                    <label class="form-label">Cholesterol HDL (mg/dL 20-100)</label>
+                    <label class="form-label">Cholesterol HDL (mg/dL 20-100)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="High-density lipoprotein (good cholesterol). Range: 20 to 100 mg/dL."></i></label>
                     <input type="number" step="0.01" min="20" max="100" name="CholesterolHDL" class="form-control"
                         required>
                 </div>
 
                 <!-- Triglycerides -->
                 <div class="col-md-4">
-                    <label class="form-label">Cholesterol Triglycerides (mg/dL 50-400)</label>
+                    <label class="form-label">Cholesterol Triglycerides (mg/dL 50-400)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Blood triglyceride level. Range: 50 to 400 mg/dL."></i></label>
                     <input type="number" step="0.01" min="50" max="400" name="CholesterolTriglycerides"
                         class="form-control" required>
                 </div>
 
                 <!-- MMSE -->
                 <div class="col-md-4">
-                    <label class="form-label">MMSE Score (0-30)</label>
+                    <label class="form-label">MMSE Score (0-30)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Mini-Mental State Exam score to assess cognitive function. Range: 0 to 30."></i></label>
                     <input type="number" step="0.01" min="0" max="30" name="MMSE" class="form-control" required>
                 </div>
 
                 <!-- Functional Assessment -->
                 <div class="col-md-4">
-                    <label class="form-label">Functional Assessment (0-10)</label>
+                    <label class="form-label">Functional Assessment (0-10)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Evaluation of daily functioning. Range: 0 (poor) to 10 (excellent)."></i></label>
                     <input type="number" step="0.01" name="FunctionalAssessment" class="form-control" required>
                 </div>
 
                 <!-- Memory Complaints -->
                 <div class="col-md-4">
-                    <label class="form-label">Memory Complaints</label>
+                    <label class="form-label">Memory Complaints<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Do you experience noticeable memory problems?"></i></label>
                     <select class="form-select" name="MemoryComplaints" required>
                         <option value="0">No</option>
                         <option value="1">Yes</option>
@@ -148,14 +164,16 @@
 
                 <!-- Behavioral Problems -->
                 <div class="col-md-4">
-                    <label class="form-label">Behavioral Problems (0-5)</label>
+                    <label class="form-label">Behavioral Problems (0-5)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Presence of behavioral issues (e.g., mood swings, aggression). Range: 0 to 5."></i></label>
                     <input type="number" step="1" min="0" max="5" name="BehavioralProblems" class="form-control"
                         required>
                 </div>
 
                 <!-- ADL -->
                 <div class="col-md-4">
-                    <label class="form-label">ADL (0-10)</label>
+                    <label class="form-label">ADL (0-10)<i style="font-size:12px;" class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Ability to perform Activities of Daily Living. Range: 0 (dependent) to 10."></i></label>
                     <input type="number" step="0.01" min="0" max="10" name="ADL" class="form-control" required>
                 </div>
 
@@ -513,5 +531,13 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 </script>
