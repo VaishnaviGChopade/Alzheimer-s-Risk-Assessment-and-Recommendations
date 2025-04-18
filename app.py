@@ -1,41 +1,7 @@
-# from flask import Flask, request, jsonify
-# import pickle  # Assuming you have a saved ML model
-
-# app = Flask(_name_)
-
-# # Load the trained Alzheimer's Risk Assessment model
-# with open("alzheimer_model.pkl", "rb") as model_file:
-#     model = pickle.load(model_file)
-
-# @app.route("/predict", methods=["POST"])
-# def predict():
-#     data = request.get_json()
-
-#     # Convert received data into a feature list (ensure order matches training)
-#     features = [
-#         float(data["age"]), int(data["gender"]), int(data["ethnicity"]),
-#         float(data["education"]), float(data["bmi"]), int(data["smoking"]),
-#         float(data["alcohol"]), float(data["diet"]), float(data["sleep"]),
-#         int(data["family_history"]), int(data["diabetes"]), int(data["depression"]),
-#         int(data["head_injury"]), int(data["hypertension"]), float(data["systolic_bp"]),
-#         float(data["diastolic_bp"]), float(data["cholesterol_ldl"]), float(data["cholesterol_hdl"]),
-#         float(data["cholesterol_trig"]), float(data["mmse"]), float(data["adl"]),
-#         float(data["behavior"])
-#     ]
-
-#     # Make prediction
-#     prediction = model.predict([features])[0]  # Assuming it's a binary classification
-
-#     return jsonify({"prediction": "High Risk" if prediction == 1 else "Low Risk"})
-
-# if _name_ == "_main_":
-#     app.run(debug=True)
-
 from flask import Flask, request, render_template, jsonify
 import pickle
 import numpy as np
 import xgboost as xgb  # Ensure this is imported at the top
-
 
 app = Flask(__name__)
 
@@ -129,6 +95,6 @@ def predict():
     except Exception as e:
         return jsonify({"result": f"Error: {str(e)}"}), 400
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
