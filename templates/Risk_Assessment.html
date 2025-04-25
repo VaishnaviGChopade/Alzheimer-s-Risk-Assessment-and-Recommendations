@@ -81,8 +81,8 @@
                     <label class="form-label">Physical Activity (0-10)<i style="font-size:12px;"
                             class="bi bi-question-circle-fill ms-1 tooltip-icon" data-bs-toggle="tooltip"
                             data-bs-placement="top"
-                            title="Level of weekly physical activity. Higher is better. Range: 0 to 20"></i></label>
-                    <input type="number" step="0.01" min="0" max="20" name="PhysicalActivity" class="form-control"
+                            title="Level of weekly physical activity. Higher is better. Range: 0 to 10"></i></label>
+                    <input type="number" step="0.01" min="0" max="10" name="PhysicalActivity" class="form-control"
                         required>
                 </div>
 
@@ -230,55 +230,7 @@
 
                 <div class="accordion" id="infoAccordion">
 
-
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#ethnicityInfo">
-                                Ethnicity
-                            </button>
-                        </h2>
-                        <div id="ethnicityInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
-                            <div class="accordion-body">
-                                The ethnicity of the patients is coded as follows:
-                                <ul>
-                                    <li>0: Caucasian</li>
-                                    <li>1: African American</li>
-                                    <li>2: Asian</li>
-                                    <li>3: Other</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#educationLevelInfo">
-                                Education Level
-                            </button>
-                        </h2>
-                        <div id="educationLevelInfo" class="accordion-collapse collapse"
-                            data-bs-parent="#infoAccordion">
-                            <div class="accordion-body">
-                                <b>Range: 0 to 5</b>
-                                <ul>
-                                    <li>0: No formal education</li>
-                                    <li>1: Primary school (up to 5th grade)</li>
-                                    <li>2: Middle school (6th to 8th grade)</li>
-                                    <li>3: High school diploma or equivalent</li>
-                                    <li>4: Some college or associate degree</li>
-                                    <li>5: Bachelor's degree or higher</li>
-                                </ul>
-                                <p>Higher education levels are associated with cognitive resilience and a lower risk of
-                                    dementia.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+                    <!-- BMI -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -299,6 +251,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Alcohol Consumption -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -321,6 +274,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Physical Activity -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#physicalActivityInfo">
+                                Physical Activity
+                            </button>
+                        </h2>
+                        <div id="physicalActivityInfo" class="accordion-collapse collapse"
+                            data-bs-parent="#infoAccordion">
+                            <div class="accordion-body">
+                                <b>Range: 0 to 10</b>
+                                <ul>
+                                    <li><b>0:</b> No physical activity</li>
+                                    <li><b>1 - 3:</b> Very low (minimal movement or occasional activity)</li>
+                                    <li><b>4 - 6:</b> Moderate (light to moderate activity a few times per week)</li>
+                                    <li><b>7 - 9:</b> High (regular exercise most days of the week)</li>
+                                    <li><b>10:</b> Very high (daily, intense or athlete-level activity)</li>
+                                </ul>
+                                <p>Regular physical activity supports brain health, improves memory, and reduces the
+                                    risk of Alzheimer's
+                                    disease.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Diet Quality -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -372,56 +352,82 @@
                         </div>
                     </div>
 
-
+                    <!-- Systolic BP -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#mmseInfo">
-                                MMSE (Mini-Mental State Examination)
+                                data-bs-target="#systolicBPInfo">
+                                Systolic Blood Pressure (mmHg)
                             </button>
                         </h2>
-                        <div id="mmseInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+                        <div id="systolicBPInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
                             <div class="accordion-body">
-                                <b>Range: 0 to 30.</b>
+                                <b>Range: 90 to 180 mmHg</b>
                                 <ul>
-                                    <li>24-30: No cognitive impairment</li>
-                                    <li>18-23: Mild cognitive impairment</li>
-                                    <li>0-17: Severe cognitive impairment</li>
+                                    <li><b>90 - 120:</b> Normal</li>
+                                    <li><b>121 - 139:</b> Elevated</li>
+                                    <li><b>140 - 180:</b> High (Hypertension)</li>
                                 </ul>
+                                <p>High systolic blood pressure is a major cardiovascular risk and has been associated
+                                    with an increased
+                                    likelihood of cognitive decline and Alzheimer’s disease.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Diastolic BP -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#bpInfo">
-                                Blood Pressure (BP)
+                                data-bs-target="#diastolicBPInfo">
+                                Diastolic Blood Pressure (mmHg)
                             </button>
                         </h2>
-                        <div id="bpInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+                        <div id="diastolicBPInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
                             <div class="accordion-body">
-                                <b>Systolic BP (90-180 mmHg):</b>
+                                <b>Range: 60 to 120 mmHg</b>
                                 <ul>
-                                    <li>90-120: Normal</li>
-                                    <li>121-139: Elevated</li>
-                                    <li>140-180: High (Hypertension)</li>
+                                    <li><b>60 - 80:</b> Normal</li>
+                                    <li><b>81 - 89:</b> Elevated</li>
+                                    <li><b>90 - 120:</b> High (Hypertension)</li>
                                 </ul>
-                                <b>Diastolic BP (60-120 mmHg):</b>
-                                <ul>
-                                    <li>60-80: Normal</li>
-                                    <li>81-89: Elevated</li>
-                                    <li>90-120: High (Hypertension)</li>
-                                </ul>
+                                <p>Elevated diastolic pressure can increase the risk of vascular damage and has been
+                                    correlated with
+                                    impaired brain function and memory issues in later life.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Cholesterol Total -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#cholesterolTotalInfo">
+                                Cholesterol Total (mg/dL)
+                            </button>
+                        </h2>
+                        <div id="cholesterolTotalInfo" class="accordion-collapse collapse"
+                            data-bs-parent="#infoAccordion">
+                            <div class="accordion-body">
+                                <b>Range: 150 to 300 mg/dL</b>
+                                <ul>
+                                    <li><b>150 - 199:</b> Desirable</li>
+                                    <li><b>200 - 239:</b> Borderline High</li>
+                                    <li><b>240 - 300:</b> High</li>
+                                </ul>
+                                <p>High total cholesterol levels are associated with an increased risk of cardiovascular
+                                    diseases and
+                                    cognitive impairment, which may contribute to Alzheimer's progression.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cholesterol LDL -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#cholesterolLDLInfo">
-                                Cholesterol LDL
+                                Cholesterol LDL (Low-Density Lipoprotein)
                             </button>
                         </h2>
                         <div id="cholesterolLDLInfo" class="accordion-collapse collapse"
@@ -494,45 +500,117 @@
                         </div>
                     </div>
 
-
+                    <!-- MMSE -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#behavioralIssuesInfo">
-                                Behavioral Issues Combined
+                                data-bs-target="#mmseInfo">
+                                MMSE (Mini-Mental State Examination)
                             </button>
                         </h2>
-                        <div id="behavioralIssuesInfo" class="accordion-collapse collapse"
-                            data-bs-parent="#infoAccordion">
+                        <div id="mmseInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
                             <div class="accordion-body">
-                                <b>Range: 0-5.</b>
-                                <p>This score includes the following behavioral issues:</p>
+                                <b>Range: 0 to 30.</b>
                                 <ul>
-                                    <li>Behavioral Problems</li>
-                                    <li>Personality Changes</li>
-                                    <li>Disorientation</li>
-                                    <li>Difficulty Completing Tasks</li>
-                                    <li>Confusion</li>
+                                    <li>24-30: No cognitive impairment</li>
+                                    <li>18-23: Mild cognitive impairment</li>
+                                    <li>0-17: Severe cognitive impairment</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Functional Assessment -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#adlFunctionalInfo">
-                                ADL Functional Combined Score
+                                data-bs-target="#functionalAssessmentInfo">
+                                Functional Assessment
                             </button>
                         </h2>
-                        <div id="adlFunctionalInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+                        <div id="functionalAssessmentInfo" class="accordion-collapse collapse"
+                            data-bs-parent="#infoAccordion">
                             <div class="accordion-body">
-                                <b>Range: 0-10.</b>
+                                <b>Range: 0 to 10</b>
                                 <ul>
-                                    <li>8-10: Minimal to no impairment</li>
-                                    <li>4-7: Moderate impairment</li>
-                                    <li>0-3: Severe impairment</li>
+                                    <li><b>0 - 3:</b> Severe impairment in daily activities</li>
+                                    <li><b>4 - 6:</b> Moderate impairment</li>
+                                    <li><b>7 - 10:</b> Minimal or no impairment</li>
                                 </ul>
+                                <p>This score assesses a person’s ability to perform routine tasks. Lower scores
+                                    indicate higher dependence,
+                                    often linked with cognitive decline.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Complaints -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#memoryComplaintsInfo">
+                                Memory Complaints
+                            </button>
+                        </h2>
+                        <div id="memoryComplaintsInfo" class="accordion-collapse collapse"
+                            data-bs-parent="#infoAccordion">
+                            <div class="accordion-body">
+                                <b>Values: Yes / No</b>
+                                <ul>
+                                    <li><b>Yes:</b> User reports noticeable memory issues</li>
+                                    <li><b>No:</b> No self-reported memory problems</li>
+                                </ul>
+                                <p>Subjective memory complaints are often early indicators of cognitive issues and are
+                                    considered in
+                                    Alzheimer’s risk assessment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Behavioral Problems -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#behavioralProblemsInfo">
+                                Behavioral Problems
+                            </button>
+                        </h2>
+                        <div id="behavioralProblemsInfo" class="accordion-collapse collapse"
+                            data-bs-parent="#infoAccordion">
+                            <div class="accordion-body">
+                                <b>Range: 0 to 5</b>
+                                <ul>
+                                    <li><b>0:</b> No behavioral symptoms</li>
+                                    <li><b>1 - 2:</b> Mild issues (e.g., occasional mood swings)</li>
+                                    <li><b>3 - 4:</b> Moderate issues (e.g., agitation, anxiety)</li>
+                                    <li><b>5:</b> Severe behavioral problems (e.g., aggression, delusions)</li>
+                                </ul>
+                                <p>Behavioral symptoms often accompany cognitive decline and can affect quality of life
+                                    and care
+                                    requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADL -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#adlInfo">
+                                ADL (Activities of Daily Living)
+                            </button>
+                        </h2>
+                        <div id="adlInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+                            <div class="accordion-body">
+                                <b>Range: 0 to 10</b>
+                                <ul>
+                                    <li><b>0 - 3:</b> Severe difficulty with basic daily tasks</li>
+                                    <li><b>4 - 6:</b> Moderate difficulty</li>
+                                    <li><b>7 - 10:</b> Independent or minimal difficulty</li>
+                                </ul>
+                                <p>ADL scores help measure the individual’s ability to carry out basic tasks such as
+                                    bathing, dressing, and
+                                    eating. Lower scores may indicate cognitive or physical impairments.</p>
                             </div>
                         </div>
                     </div>

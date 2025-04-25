@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <title>Alzheimer's Risk Recommendations</title>
   <style>
     * {
@@ -165,14 +168,6 @@
   <h1>🧠 Alzheimer's Risk Recommendations</h1>
 
   <div class="grid-top">
-    <div class="category">
-      <h3>👥 Demographic Details</h3>
-
-      <div class="param" data-param="EducationLevel">
-        🎓 Education Level <span class="selected-value"></span>
-        <span class="arrow">▶️</span>
-      </div>
-    </div>
 
     <div class="category">
       <h3>🏃 Lifestyle Factors</h3>
@@ -200,6 +195,12 @@
         😴 Sleep Quality <span class="selected-value"></span>
         <span class="arrow">▶️</span>
       </div>
+
+      <div class="param" data-param="PhysicalActivity">
+        🏃‍♂️ Physical Activity <span class="selected-value"></span>
+        <span class="arrow">▶️</span>
+      </div>
+
     </div>
 
     <div class="category">
@@ -220,6 +221,10 @@
       <div class="param" data-param="Hypertension">
         💓 Hypertension
       </div>
+
+      <div class="param" data-param="MemoryComplaints">
+        🧠 Memory Complaints
+      </div>
     </div>
   </div>
 
@@ -234,6 +239,11 @@
 
       <div class="param" data-param="DiastolicBP">
         💉 Diastolic BP <span class="selected-value"></span>
+        <span class="arrow">▶️</span>
+      </div>
+
+      <div class="param" data-param="CholesterolTotal">
+        🧬 Cholesterol Total <span class="selected-value"></span>
         <span class="arrow">▶️</span>
       </div>
 
@@ -261,8 +271,13 @@
         <span class="arrow">▶️</span>
       </div>
 
-      <div class="param" data-param="ADL_FunctionalCombined">
-        🧍 ADL Functional Combined <span class="selected-value"></span>
+      <div class="param" data-param="ADL">
+        🧍 ADL (Daily Living) <span class="selected-value"></span>
+        <span class="arrow">▶️</span>
+      </div>
+
+      <div class="param" data-param="FunctionalAssessment">
+        🧾 Functional Assessment <span class="selected-value"></span>
         <span class="arrow">▶️</span>
       </div>
 
@@ -281,6 +296,464 @@
     <div id="recommendationList"></div>
   </div>
 
+  <!-- Information Section -->
+  <div class="mt-5">
+    <h3 class="text-center">Parameter Information</h3>
+    <p class="text-center text-muted">Click on each category to learn more.</p>
+
+    <div class="accordion" id="infoAccordion">
+
+      <!-- BMI -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#bmiInfo">
+            BMI (Body Mass Index)
+          </button>
+        </h2>
+        <div id="bmiInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 15 to 40.</b>
+            <ul>
+              <li>Below 18.5: Underweight</li>
+              <li>18.5 to 24.9: Normal weight</li>
+              <li>25 to 29.9: Overweight</li>
+              <li>30 and above: Obese</li>
+              <li>40 or above: Severe obesity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alcohol Consumption -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#alcoholInfo">
+            Alcohol Consumption
+          </button>
+        </h2>
+        <div id="alcoholInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 20 units per week</b>
+            <ul>
+              <li><b>0:</b> No alcohol consumption</li>
+              <li><b>1 - 7:</b> Light drinking (up to 1 unit per day)</li>
+              <li><b>8 - 14:</b> Moderate drinking (up to 2 units per day)</li>
+              <li><b>15 - 20:</b> Heavy drinking</li>
+            </ul>
+            <p>Excessive alcohol consumption is linked to cognitive decline and an increased risk of
+              Alzheimer's.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical Activity -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#physicalActivityInfo">
+            Physical Activity
+          </button>
+        </h2>
+        <div id="physicalActivityInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 10</b>
+            <ul>
+              <li><b>0:</b> No physical activity</li>
+              <li><b>1 - 3:</b> Very low (minimal movement or occasional activity)</li>
+              <li><b>4 - 6:</b> Moderate (light to moderate activity a few times per week)</li>
+              <li><b>7 - 9:</b> High (regular exercise most days of the week)</li>
+              <li><b>10:</b> Very high (daily, intense or athlete-level activity)</li>
+            </ul>
+            <p>Regular physical activity supports brain health, improves memory, and reduces the
+              risk of Alzheimer's
+              disease.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diet Quality -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dietQualityInfo">
+            Diet Quality
+          </button>
+        </h2>
+        <div id="dietQualityInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 10</b>
+            <ul>
+              <li><b>0 - 3:</b> Poor diet quality (high in unhealthy foods, low in fruits and
+                vegetables)</li>
+              <li><b>4 - 6:</b> Average diet quality (moderate balance of healthy and unhealthy
+                foods)</li>
+              <li><b>7 - 10:</b> High diet quality (rich in fruits, vegetables, whole grains, and
+                lean proteins)</li>
+            </ul>
+            <p>A balanced diet with proper nutrition supports brain health and helps reduce the risk
+              of cognitive decline.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Sleep Quality -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sleepQualityInfo">
+            Sleep Quality
+          </button>
+        </h2>
+        <div id="sleepQualityInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 4 to 10</b>
+            <ul>
+              <li><b>4 - 5:</b> Poor sleep quality (difficulty falling asleep, frequent waking,
+                feeling tired in the morning)</li>
+              <li><b>6 - 7:</b> Average sleep quality (occasional disturbances, generally restful)
+              </li>
+              <li><b>8 - 10:</b> Good sleep quality (consistent, uninterrupted, and restful sleep)
+              </li>
+            </ul>
+            <p>Quality sleep is essential for brain function, memory consolidation, and reducing
+              Alzheimer's risk.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Systolic BP -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#systolicBPInfo">
+            Systolic Blood Pressure (mmHg)
+          </button>
+        </h2>
+        <div id="systolicBPInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 90 to 180 mmHg</b>
+            <ul>
+              <li><b>90 - 120:</b> Normal</li>
+              <li><b>121 - 139:</b> Elevated</li>
+              <li><b>140 - 180:</b> High (Hypertension)</li>
+            </ul>
+            <p>High systolic blood pressure is a major cardiovascular risk and has been associated
+              with an increased
+              likelihood of cognitive decline and Alzheimer’s disease.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diastolic BP -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#diastolicBPInfo">
+            Diastolic Blood Pressure (mmHg)
+          </button>
+        </h2>
+        <div id="diastolicBPInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 60 to 120 mmHg</b>
+            <ul>
+              <li><b>60 - 80:</b> Normal</li>
+              <li><b>81 - 89:</b> Elevated</li>
+              <li><b>90 - 120:</b> High (Hypertension)</li>
+            </ul>
+            <p>Elevated diastolic pressure can increase the risk of vascular damage and has been
+              correlated with
+              impaired brain function and memory issues in later life.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cholesterol Total -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#cholesterolTotalInfo">
+            Cholesterol Total (mg/dL)
+          </button>
+        </h2>
+        <div id="cholesterolTotalInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 150 to 300 mg/dL</b>
+            <ul>
+              <li><b>150 - 199:</b> Desirable</li>
+              <li><b>200 - 239:</b> Borderline High</li>
+              <li><b>240 - 300:</b> High</li>
+            </ul>
+            <p>High total cholesterol levels are associated with an increased risk of cardiovascular
+              diseases and
+              cognitive impairment, which may contribute to Alzheimer's progression.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cholesterol LDL -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cholesterolLDLInfo">
+            Cholesterol LDL (Low-Density Lipoprotein)
+          </button>
+        </h2>
+        <div id="cholesterolLDLInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 50 to 200 mg/dL.</b>
+            <ul>
+              <li>50-100 mg/dL: Optimal</li>
+              <li>101-129 mg/dL: Near or above optimal</li>
+              <li>130-159 mg/dL: Borderline high</li>
+              <li>160-200 mg/dL: High to very high</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cholesterol HDL -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cholesterolHDLInfo">
+            Cholesterol HDL (High-Density Lipoprotein)
+          </button>
+        </h2>
+        <div id="cholesterolHDLInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 20 to 100 mg/dL</b>
+            <ul>
+              <li><b>20 - 39 mg/dL:</b> Low HDL cholesterol level (associated with a higher risk
+                of heart disease and cognitive decline)</li>
+              <li><b>40 - 60 mg/dL:</b> Optimal HDL cholesterol level (helps remove bad
+                cholesterol and reduce Alzheimer's risk)</li>
+              <li><b>61 - 100 mg/dL:</b> High HDL cholesterol level (associated with lower risk of
+                heart disease and better brain health)</li>
+            </ul>
+            <p>HDL cholesterol is often referred to as "good cholesterol" because it helps remove
+              excess LDL ("bad" cholesterol) from the bloodstream, reducing the risk of
+              cardiovascular diseases and potentially lowering Alzheimer's risk.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cholesterol Triglycerides -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#cholesterolTriglyceridesInfo">
+            Cholesterol Triglycerides
+          </button>
+        </h2>
+        <div id="cholesterolTriglyceridesInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 50 to 400 mg/dL</b>
+            <ul>
+              <li><b>50 - 150 mg/dL:</b> Normal triglyceride level (low risk for cardiovascular
+                issues and Alzheimer's)</li>
+              <li><b>151 - 199 mg/dL:</b> Borderline high triglyceride level (increased risk of
+                heart disease and metabolic issues)</li>
+              <li><b>200 - 499 mg/dL:</b> High triglyceride level (associated with a greater risk
+                of cognitive decline and cardiovascular diseases)</li>
+              <li><b>500> mg/dL:</b> Very high triglyceride level (severe risk for metabolic
+                syndrome, heart disease, and possible impact on brain health)</li>
+            </ul>
+            <p>Triglycerides are a type of fat found in the blood. Elevated triglyceride levels have
+              been linked to an increased risk of Alzheimer's disease and other cognitive
+              impairments.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MMSE -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#mmseInfo">
+            MMSE (Mini-Mental State Examination)
+          </button>
+        </h2>
+        <div id="mmseInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 30.</b>
+            <ul>
+              <li>24-30: No cognitive impairment</li>
+              <li>18-23: Mild cognitive impairment</li>
+              <li>0-17: Severe cognitive impairment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Functional Assessment -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#functionalAssessmentInfo">
+            Functional Assessment
+          </button>
+        </h2>
+        <div id="functionalAssessmentInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 10</b>
+            <ul>
+              <li><b>0 - 3:</b> Severe impairment in daily activities</li>
+              <li><b>4 - 6:</b> Moderate impairment</li>
+              <li><b>7 - 10:</b> Minimal or no impairment</li>
+            </ul>
+            <p>This score assesses a person’s ability to perform routine tasks. Lower scores
+              indicate higher dependence,
+              often linked with cognitive decline.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Memory Complaints -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#memoryComplaintsInfo">
+            Memory Complaints
+          </button>
+        </h2>
+        <div id="memoryComplaintsInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Values: Yes / No</b>
+            <ul>
+              <li><b>Yes:</b> User reports noticeable memory issues</li>
+              <li><b>No:</b> No self-reported memory problems</li>
+            </ul>
+            <p>Subjective memory complaints are often early indicators of cognitive issues and are
+              considered in
+              Alzheimer’s risk assessment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Behavioral Problems -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#behavioralProblemsInfo">
+            Behavioral Problems
+          </button>
+        </h2>
+        <div id="behavioralProblemsInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 5</b>
+            <ul>
+              <li><b>0:</b> No behavioral symptoms</li>
+              <li><b>1 - 2:</b> Mild issues (e.g., occasional mood swings)</li>
+              <li><b>3 - 4:</b> Moderate issues (e.g., agitation, anxiety)</li>
+              <li><b>5:</b> Severe behavioral problems (e.g., aggression, delusions)</li>
+            </ul>
+            <p>Behavioral symptoms often accompany cognitive decline and can affect quality of life
+              and care
+              requirements.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADL -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#adlInfo">
+            ADL (Activities of Daily Living)
+          </button>
+        </h2>
+        <div id="adlInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Range: 0 to 10</b>
+            <ul>
+              <li><b>0 - 3:</b> Severe difficulty with basic daily tasks</li>
+              <li><b>4 - 6:</b> Moderate difficulty</li>
+              <li><b>7 - 10:</b> Independent or minimal difficulty</li>
+            </ul>
+            <p>ADL scores help measure the individual’s ability to carry out basic tasks such as
+              bathing, dressing, and
+              eating. Lower scores may indicate cognitive or physical impairments.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depression -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#depressionInfo">
+            Depression
+          </button>
+        </h2>
+        <div id="depressionInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Values: Yes / No</b>
+            <ul>
+              <li><b>Yes:</b> Individual experiences symptoms of depression (e.g., sadness, loss of interest)</li>
+              <li><b>No:</b> No signs or diagnosis of depression</li>
+            </ul>
+            <p>Depression can negatively impact cognitive function and may increase the risk of developing Alzheimer’s
+              disease. Early identification and management are essential.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hypertension -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#hypertensionInfo">
+            Hypertension
+          </button>
+        </h2>
+        <div id="hypertensionInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Values: Yes / No</b>
+            <ul>
+              <li><b>Yes:</b> High blood pressure (diagnosed or under treatment)</li>
+              <li><b>No:</b> No signs or history of hypertension</li>
+            </ul>
+            <p>Hypertension can damage blood vessels in the brain and is a known risk factor for cognitive decline and
+              dementia. Proper blood pressure control is vital.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Head Injury -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#headInjuryInfo">
+            Head Injury
+          </button>
+        </h2>
+        <div id="headInjuryInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Values: Yes / No</b>
+            <ul>
+              <li><b>Yes:</b> History of significant head trauma or concussion</li>
+              <li><b>No:</b> No known head injuries</li>
+            </ul>
+            <p>Past head injuries can increase the likelihood of developing cognitive issues or dementia later in life.
+              Monitoring and brain protection strategies are important.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diabetes -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#diabetesInfo">
+            Diabetes
+          </button>
+        </h2>
+        <div id="diabetesInfo" class="accordion-collapse collapse" data-bs-parent="#infoAccordion">
+          <div class="accordion-body">
+            <b>Values: Yes / No</b>
+            <ul>
+              <li><b>Yes:</b> Diagnosed with diabetes (Type 1 or Type 2)</li>
+              <li><b>No:</b> No history of diabetes</li>
+            </ul>
+            <p>Diabetes, especially when poorly controlled, is associated with increased risk of Alzheimer’s and
+              vascular
+              dementia due to its impact on brain blood flow and metabolism.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="text-center mt-5 mb-4">
     <a href="/" class="btn btn-dark">Back to Home</a>
   </div>
@@ -288,14 +761,6 @@
   <script>
     const paramConfig = {
 
-      EducationLevel: {
-        type: "multi",
-        options: [
-          "Limited Education (Up to Middle School)",
-          "Moderate Education (High School or Some College)",
-          "Advanced Education (Bachelor's or Higher)"
-        ]
-      },
       BMI: {
         type: "multi",
         options: [
@@ -402,44 +867,51 @@
           "Moderate",
           "Severe"
         ]
+      },
+      PhysicalActivity: {
+        type: "multi",
+        options: [
+          "No activity",
+          "Very low",
+          "Moderate",
+          "High",
+          "Very high"
+        ]
+      },
+      CholesterolTotal: {
+        type: "multi",
+        options: [
+          "Desirable",
+          "Borderline High",
+          "High"
+        ]
+      },
+
+      MemoryComplaints: {
+        type: "binary"
+      },
+
+      ADL: {
+        type: "multi",
+        options: [
+          "Severe difficulty",
+          "Moderate difficulty",
+          "Independent or minimal difficulty"
+        ]
+      },
+
+      FunctionalAssessment: {
+        type: "multi",
+        options: [
+          "Severe impairment",
+          "Moderate impairment",
+          "Minimal or no impairment"
+        ]
       }
+
     };
 
     const recommendations = {
-
-      // EducationLevel
-      "EducationLevel_Limited Education (Up to Middle School)": `
-  <p>📘 <strong>Limited formal education</strong> is a known risk factor for Alzheimer's as it may lead to lower cognitive reserves.</p>
-  <ul>
-    <li>🧠 Encourage mentally stimulating activities—puzzles, reading, or learning new skills.</li>
-    <li>📺 Educational content on YouTube or TV can be a great learning source.</li>
-    <li>🗣️ Practice storytelling, language games, or memory recall activities.</li>
-    <li>👥 Engage in group discussions to improve social and cognitive interaction.</li>
-  </ul>
-  <p>It's never too late to challenge the brain—continuous learning helps slow cognitive decline! 🚀</p>
-`,
-
-      "EducationLevel_Moderate Education (High School or Some College)": `
-  <p>🎓 <strong>Moderate education levels</strong> offer decent cognitive protection, but mental engagement must continue.</p>
-  <ul>
-    <li>📚 Take part in lifelong learning—workshops, online courses, or reading groups.</li>
-    <li>🎲 Use strategic games like chess or crosswords to challenge memory and logic.</li>
-    <li>🧑‍🤝‍🧑 Join community clubs for interactive, brain-boosting activities.</li>
-  </ul>
-  <p>Consistent brain challenges can delay the onset of Alzheimer's symptoms. Stay sharp and curious! 🧠</p>
-`,
-
-      "EducationLevel_Advanced Education (Bachelor's or Higher)": `
-  <p>🏅 <strong>Higher education</strong> builds strong cognitive reserves that help resist neurodegeneration.</p>
-  <ul>
-    <li>💼 Stay intellectually engaged through mentoring, teaching, or research.</li>
-    <li>🧠 Keep exploring complex topics—science, literature, philosophy, etc.</li>
-    <li>🧘 Practice mindfulness to balance mental stimulation with relaxation.</li>
-    <li>🤝 Participate in group discussions to share and refine knowledge.</li>
-  </ul>
-  <p>Maintain your brain's agility with deep thinking and creative expression. Knowledge is your defense! 🧩</p>
-`
-      ,
 
       //BMI
       "BMI_Underweight": `
@@ -839,43 +1311,6 @@
   <p>Keeping your blood pressure in check safeguards your heart *and* your brain. 🧠❤️</p>
 `,
 
-      // ADL_Functional Combined
-      "ADL_FunctionalCombined_Minimal": `
-  <p>🧍‍♂️ <strong>Low ADL function</strong> means difficulty with basic tasks like dressing, bathing, or eating.</p>
-  <ul>
-    <li>🛠️ Make the home safer—install grab bars, ramps, and proper lighting.</li>
-    <li>⏰ Set consistent daily routines and give simple, step-by-step instructions.</li>
-    <li>🧠 Use memory aids like sticky notes, timers, or reminder apps.</li>
-    <li>🤝 Offer supervision or caregiver assistance when needed.</li>
-    <li>🧘‍♀️ Encourage light activities like walking or seated exercises to retain mobility.</li>
-  </ul>
-  <p>Improving daily task support reduces frustration and increases independence. 💪</p>
-`,
-
-      "ADL_FunctionalCombined_Normal": `
-  <p>👍 <strong>Normal ADL function</strong> suggests the ability to manage most daily tasks independently.</p>
-  <ul>
-    <li>💡 Encourage continued engagement in daily routines to maintain ability.</li>
-    <li>🏡 Use home modifications proactively for aging in place.</li>
-    <li>🧘‍♂️ Include low-impact exercises to boost coordination and strength.</li>
-    <li>📝 Introduce brain-boosting tasks like puzzles or reading.</li>
-    <li>🔁 Maintain consistency in schedules to reduce cognitive stress.</li>
-  </ul>
-  <p>Maintaining functional independence boosts self-confidence and quality of life! 🌟</p>
-`,
-
-      "ADL_FunctionalCombined_Severe": `
-  <p>💪 <strong>High ADL function</strong> means excellent independence in daily life.</p>
-  <ul>
-    <li>🌟 Maintain an active lifestyle with regular cognitive and physical exercises.</li>
-    <li>📚 Promote mentally stimulating activities like volunteering, hobbies, or learning.</li>
-    <li>🥗 Ensure a balanced diet and proper hydration.</li>
-    <li>👥 Stay socially engaged to strengthen emotional well-being.</li>
-    <li>🧠 Include memory games or tasks to continue brain stimulation.</li>
-  </ul>
-  <p>Preserving ADL strength is a major protective factor in aging and Alzheimer's prevention. 🚀</p>
-`,
-
       // Behavioral Issues Combined
       "Behavioral_Issues_Combined_None": `
   <p>😊 <strong>No behavioral symptoms</strong> is a great sign of emotional stability and cognitive health.</p>
@@ -978,7 +1413,166 @@
     <li>💊 Treatment or therapy may be needed under professional supervision.</li>
   </ul>
   <p>Support, structure, and timely medical care are essential at this stage. 🧾❤️</p>
-`
+`,
+
+      "PhysicalActivity_Low": `
+  <p>⚠️ <strong>Low physical activity</strong> may negatively impact both your physical and cognitive health.</p>
+  <ul>
+    <li>🚶‍♂️ Start incorporating light activities like walking or stretching for 15-20 minutes daily.</li>
+    <li>💪 Even minimal movement can improve circulation and help manage stress.</li>
+    <li>🧠 Low physical activity is linked to higher risks of cognitive decline—try to move more consistently.</li>
+    <li>🎯 Aim for at least 30 minutes of moderate physical activity 3–4 times a week.</li>
+    <li>👨‍⚕️ Consider consulting a fitness professional to help you gradually increase your activity level.</li>
+  </ul>
+  <p>Increasing your physical activity will enhance brain function and improve overall well-being. 🧠🏃‍♂️</p>
+`,
+
+      "PhysicalActivity_Moderate": `
+  <p>✅ <strong>Moderate physical activity</strong> is excellent for improving both physical and cognitive health.</p>
+  <ul>
+    <li>🏃‍♀️ Maintain a routine with cardio and strength training exercises a few times per week.</li>
+    <li>🧠 Regular moderate exercise is linked to improved memory, mood, and brain health.</li>
+    <li>💧 Stay hydrated and ensure you're fueling your body properly to support your activity levels.</li>
+    <li>📅 Consistency is key—try to make physical activity a part of your daily life.</li>
+    <li>🎯 If you're ready, gradually increase the intensity or duration of your activities for even more benefits.</li>
+  </ul>
+  <p>Keep up the great work! Your activity level is already supporting your long-term health and cognitive function. 🧠💪</p>
+`,
+
+      "PhysicalActivity_High": `
+  <p>🌟 <strong>High physical activity</strong> is fantastic for both your body and mind!</p>
+  <ul>
+    <li>🏋️‍♂️ Combine cardio, strength training, and flexibility exercises to maximize benefits.</li>
+    <li>🧠 High physical activity has been linked to a decreased risk of cognitive decline and enhanced brain function.</li>
+    <li>💪 Track your progress and push yourself towards new fitness goals, while ensuring proper recovery.</li>
+    <li>🍽️ Fuel your body with the right nutrition—focus on proteins, healthy fats, and ample hydration.</li>
+    <li>🎯 Avoid overtraining—ensure you get enough rest to keep your body in top shape.</li>
+  </ul>
+  <p>Great job! Continue your high activity level to keep both your physical and mental health in peak condition. 🏆🧠</p>
+`,
+
+      "PhysicalActivity_VeryHigh": `
+  <p>🌟 <strong>Very high physical activity</strong> (athlete-level) is optimal for both physical and cognitive health.</p>
+  <ul>
+    <li>🏅 Maintain a diverse fitness routine, focusing on endurance, strength, and flexibility training.</li>
+    <li>🧠 High-intensity exercise has been shown to improve cognitive function and prevent brain aging.</li>
+    <li>💪 Ensure you're following a balanced nutrition plan to fuel and recover from intense physical activity.</li>
+    <li>📋 Regularly assess your performance to avoid burnout and ensure you're meeting your health goals.</li>
+    <li>🎯 While very high activity is great, always listen to your body and prioritize recovery to avoid overexertion.</li>
+  </ul>
+  <p>Your intense activity level is excellent for long-term brain and body health—keep it up! 🧠💪</p>
+`,
+      "MemoryComplaints": `
+  <p>⚠️ <strong>Memory complaints</strong> can be early signs of cognitive decline or stress-related memory lapses.</p>
+  <ul>
+    <li>🧩 Engage in brain-stimulating activities like puzzles, reading, or new hobbies.</li>
+    <li>🛌 Ensure 7–9 hours of restful sleep to support memory consolidation.</li>
+    <li>📱 Limit screen time and distractions—focus improves memory retention.</li>
+    <li>🥦 Eat foods rich in omega-3s and antioxidants—supportive for brain health.</li>
+    <li>🧘 Practice mindfulness or meditation to reduce anxiety-driven memory issues.</li>
+  </ul>
+  <p>Consistent mental and lifestyle care may reduce memory issues. Consult a specialist if symptoms persist. 🧠📋</p>
+`,
+      "CholesterolTotal_Desirable": `
+  <p>✅ <strong>Desirable cholesterol levels</strong> support cardiovascular and brain health.</p>
+  <ul>
+    <li>🥗 Maintain a diet low in trans fats and rich in fiber.</li>
+    <li>🚶‍♂️ Continue regular physical activity to support healthy lipid profiles.</li>
+    <li>💧 Stay hydrated and avoid smoking or excessive alcohol.</li>
+    <li>🩺 Get lipid levels checked yearly to stay on track.</li>
+    <li>🧠 Good heart health equals good brain function—keep both in sync.</li>
+  </ul>
+  <p>Stable cholesterol helps reduce Alzheimer’s risk and promotes longevity. ❤️🧠</p>
+`,
+      "CholesterolTotal_Borderline High": `
+  <p>⚠️ <strong>Borderline high cholesterol</strong> can lead to vascular and cognitive risks if unchecked.</p>
+  <ul>
+    <li>🥦 Adopt a low-saturated fat diet with more veggies and whole grains.</li>
+    <li>🏃 Increase physical activity—aim for at least 30 mins most days.</li>
+    <li>🧃 Limit sugary drinks and red meat consumption.</li>
+    <li>📉 Monitor lipid profile every 6 months and track improvements.</li>
+    <li>🧠 High cholesterol may affect brain blood flow—act early.</li>
+  </ul>
+  <p>Small lifestyle changes can bring levels back to optimal range. 🩺💚</p>
+`,
+      "CholesterolTotal_High": `
+  <p>🚨 <strong>High cholesterol</strong> significantly raises the risk for heart disease and dementia.</p>
+  <ul>
+    <li>🍲 Shift to a Mediterranean diet—rich in fruits, nuts, fish, and olive oil.</li>
+    <li>🚴 Increase aerobic exercise—brisk walking, cycling, or swimming.</li>
+    <li>💊 Consult a doctor—medication may be necessary for safe reduction.</li>
+    <li>🧠 Chronic high cholesterol impairs blood flow to the brain—intervene now.</li>
+    <li>📒 Keep a health log to track diet, activity, and cholesterol levels.</li>
+  </ul>
+  <p>Actively managing cholesterol can safeguard your brain and heart. ❤️🧠</p>
+`,
+      "ADL_Severe difficulty": `
+  <p>🚨 <strong>Severe difficulty in daily tasks</strong> indicates a high level of dependency and possible cognitive or physical decline.</p>
+  <ul>
+    <li>🩺 Seek occupational therapy for targeted skill improvement.</li>
+    <li>🧭 Use assistive tools like reminder apps, labels, and mobility aids.</li>
+    <li>🤝 Ensure strong caregiver support or supervision for safety.</li>
+    <li>🧠 Regular mental stimulation and routine can improve task handling.</li>
+    <li>🏥 Medical evaluation may help identify treatable causes (e.g., pain, depression).</li>
+  </ul>
+  <p>Early support and intervention can improve independence and quality of life. 🧠👐</p>
+`,
+      "ADL_Moderate difficulty": `
+  <p>⚠️ <strong>Moderate ADL difficulty</strong> suggests early signs of functional decline.</p>
+  <ul>
+    <li>🧠 Create a consistent daily routine to reduce confusion.</li>
+    <li>💪 Include light physical and cognitive exercises daily.</li>
+    <li>📝 Use checklists and reminders to aid memory and organization.</li>
+    <li>🥗 Maintain nutrition and hydration for better energy levels.</li>
+    <li>🤝 Involve caregivers or family in monitoring subtle changes.</li>
+  </ul>
+  <p>Staying engaged and supported helps preserve independence. 🧠🌿</p>
+`,
+      "ADL_Independent": `
+  <p>✅ <strong>Independent in daily tasks</strong> reflects good functional and cognitive health.</p>
+  <ul>
+    <li>🏃 Maintain physical activity and balanced routines.</li>
+    <li>🧩 Keep the brain sharp with learning, puzzles, or hobbies.</li>
+    <li>💡 Prevent decline by tracking subtle difficulties early.</li>
+    <li>🫀 Regular checkups can catch changes before they escalate.</li>
+    <li>🧠 Social interaction also strengthens functional resilience.</li>
+  </ul>
+  <p>Keep up the great work—staying active helps protect independence. 🧠💪</p>
+`,
+      "FunctionalAssessment_Severe impairment": `
+  <p>🚨 <strong>Severe functional impairment</strong> may reflect advanced cognitive or neurological decline.</p>
+  <ul>
+    <li>🏥 Immediate clinical intervention is recommended.</li>
+    <li>🧠 Structured daily routines can reduce confusion and frustration.</li>
+    <li>🪑 Adaptive aids (e.g., walkers, memory boards) improve safety and dignity.</li>
+    <li>🫂 Family or caregiver training can enhance support.</li>
+    <li>💊 Medication review may help identify reversible causes of impairment.</li>
+  </ul>
+  <p>Timely care and structure can still improve quality of life. 🧠👥</p>
+`,
+      "FunctionalAssessment_Moderate impairment": `
+  <p>⚠️ <strong>Moderate impairment</strong> in daily functions signals need for early support.</p>
+  <ul>
+    <li>📝 Simplify tasks using visual cues, reminders, and to-do lists.</li>
+    <li>💬 Encourage frequent mental stimulation and socialization.</li>
+    <li>🛠️ Occupational therapy can help strengthen daily skills.</li>
+    <li>🧃 Nutrition, hydration, and sleep directly affect functional abilities.</li>
+    <li>📋 Regular assessments help track improvement or deterioration.</li>
+  </ul>
+  <p>Early action can slow down decline and maintain independence. 🧠🔧</p>
+`,
+      "FunctionalAssessment_Minimal impairment": `
+  <p>✅ <strong>Minimal or no functional impairment</strong> is a great indicator of healthy aging.</p>
+  <ul>
+    <li>💪 Stay active with daily routines and physical exercises.</li>
+    <li>🧠 Keep challenging your brain—learn new things regularly.</li>
+    <li>🍽️ Eat well-balanced meals and stay hydrated.</li>
+    <li>🧩 Engage socially to support mental sharpness and mood.</li>
+    <li>🩺 Monitor any subtle decline through regular self-checks or assessments.</li>
+  </ul>
+  <p>Consistency in healthy habits sustains function and independence. 🌟🧠</p>
+`,
+
     };
 
 
